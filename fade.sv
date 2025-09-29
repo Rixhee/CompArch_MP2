@@ -1,7 +1,7 @@
 module fade #(
     parameter PWM_INTERVAL = 1200, // CLK frequency is 12Mhz, so the PWM cycle would complete every 100us
-    parameter INC_DEC_INTERVAL = 12000, // CLK frequency is 12Mhz, so the brightness would inc/dec every 1ms
-    parameter INC_DEC_MAX = 200, // The transition would occur every 0.2s
+    parameter INC_DEC_INTERVAL = 10000, // CLK frequency is 12Mhz, so the brightness would inc/dec every .83ms
+    parameter INC_DEC_MAX = 200, // The transition would occur every ~0.16s
     parameter INC_DEC_VAL = PWM_INTERVAL / INC_DEC_MAX // Calculating the value by which the PWM value should change for brightness
 ) (
     input logic clk,
