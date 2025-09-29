@@ -21,9 +21,9 @@ module top #(
     logic pwm_out;
 
     initial begin
-        RGB_R = 1'b0;
-        RGB_G = 1'b1;
-        RGB_B = 1'b1;
+        RGB_R <= 1'b0;
+        RGB_G <= 1'b1;
+        RGB_B <= 1'b1;
     end
 
     fade #(
@@ -51,29 +51,29 @@ module top #(
 
         // Set RGB values for each interval
         if (count < ONE_SIXTH) begin
-            RGB_R = 1'b0;
-            RGB_G = ~pwm_out;
-            RGB_B = 1'b1;
+            RGB_R <= 1'b0;
+            RGB_G <= ~pwm_out;
+            RGB_B <= 1'b1;
         end else if (count < TWO_SIXTH) begin
-            RGB_R = ~pwm_out;
-            RGB_G = 1'b0;
-            RGB_B = 1'b1;
+            RGB_R <= ~pwm_out;
+            RGB_G <= 1'b0;
+            RGB_B <= 1'b1;
         end else if (count < THREE_SIXTH) begin
-            RGB_R = 1'b1;
-            RGB_G = 1'b0;
-            RGB_B = ~pwm_out;
+            RGB_R <= 1'b1;
+            RGB_G <= 1'b0;
+            RGB_B <= ~pwm_out;
         end else if (count < FOUR_SIXTH) begin
-            RGB_R = 1'b1;
-            RGB_G = ~pwm_out;
-            RGB_B = 1'b0;
+            RGB_R <= 1'b1;
+            RGB_G <= ~pwm_out;
+            RGB_B <= 1'b0;
         end else if (count < FIVE_SIXTH) begin
-            RGB_R = ~pwm_out;
-            RGB_G = 1'b1;
-            RGB_B = 1'b0;
+            RGB_R <= ~pwm_out;
+            RGB_G <= 1'b1;
+            RGB_B <= 1'b0;
         end else begin
-            RGB_R = 1'b0;
-            RGB_G = 1'b1;
-            RGB_B = ~pwm_out;
+            RGB_R <= 1'b0;
+            RGB_G <= 1'b1;
+            RGB_B <= ~pwm_out;
         end
     end
 
