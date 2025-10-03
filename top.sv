@@ -4,7 +4,7 @@
 module top #(
     parameter PWM_INTERVAL = 1000,
     parameter ONE_SECOND = 12000000,
-    parameter STATE_TRANSITION_INTERVAL = ONE_SECOND / 6 // Change the state every 0.167s for controlling different colors
+    parameter STATE_TRANSITION_INTERVAL = ONE_SECOND / 6 // Change the state every ~0.16s for controlling different colors
 )
 (
     input logic clk,

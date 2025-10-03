@@ -13,7 +13,7 @@ module fade #(
     localparam PWM_DEC = 1'b1;
 
     logic current_state = PWM_INC;
-    logic next_state = PWM_DEC;
+    logic next_state;
 
     // Definding variables to keep track of counts, and transitions
     logic [$clog2(INC_DEC_MAX) - 1: 0] inc_dec_count = 0;
@@ -37,7 +37,7 @@ module fade #(
         endcase
     end
 
-    // Increase/decrease the pwm value (brightness) every 1ms
+    // Increase/decrease the pwm value (brightness)
     always_ff @(posedge time_to_inc_dec) begin
         case (current_state)
             PWM_INC:
@@ -59,7 +59,7 @@ module fade #(
         end
     end
 
-    // Update the inc_dec_count every 1ms and set the time_to_transition every 0.2s
+    // Update the inc_dec_count and set the time_to_transition
     always_ff @(posedge time_to_inc_dec) begin
         if (inc_dec_count == INC_DEC_MAX - 1) begin
             inc_dec_count <= 0;
