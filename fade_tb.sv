@@ -6,6 +6,9 @@ module fade_tb;
     parameter PWM_INTERVAL = 1000;
 
     logic clk = 0;
+    logic RGB_R;
+    logic RGB_G;
+    logic RGB_B;
 
     // Keeping track of the same PWM but for all colors
     logic [$clog2(PWM_INTERVAL) - 1: 0] red_pwm_value;
@@ -15,7 +18,10 @@ module fade_tb;
     top # (
         .PWM_INTERVAL (PWM_INTERVAL)
     ) u0 (
-        .clk (clk)
+        .clk (clk),
+        .RGB_R (RGB_R),
+        .RGB_G (RGB_G),
+        .RGB_B (RGB_B)
     );
 
     initial begin
