@@ -1,5 +1,5 @@
 module pwm #(
-    parameter PWM_INTERVAL = 1200 // CLK frequency is 12Mhz, so the PWM cycle would complete every 100us
+    parameter PWM_INTERVAL = 1000 // CLK frequency is 12Mhz, so the PWM cycle would complete every ~83us
 ) (
     input logic clk,
     input logic [$clog2(PWM_INTERVAL) - 1: 0] pwm_value,

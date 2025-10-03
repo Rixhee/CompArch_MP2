@@ -3,20 +3,24 @@
 
 module fade_tb;
     
-    parameter PWM_INTERVAL = 1200;
+    parameter PWM_INTERVAL = 1000;
 
     logic clk = 0;
-    logic RGB_R;
-    logic RGB_G;
-    logic RGB_B;
+
+    // Variable to access current_state
+    logic [2: 0] tb_current_state;
+
+    // Keeping track of the same PWM but for all colors
+    logic [$clog2(PWM_INTERVAL) - 1: 0] red_pwm_value;
+    logic [$clog2(PWM_INTERVAL) - 1: 0] green_pwm_value;
+    logic [$clog2(PWM_INTERVAL) - 1: 0] blue_pwm_value;
+
+    assign  tb_current_state = u0.current_state;
 
     top # (
         .PWM_INTERVAL (PWM_INTERVAL)
     ) u0 (
-        .clk (clk),
-        .RGB_R (RGB_R),
-        .RGB_G (RGB_G),
-        .RGB_B (RGB_B)
+        .clk (clk)
     );
 
     initial begin
@@ -31,4 +35,39 @@ module fade_tb;
         clk = ~clk;
     end
 
+    // Update specific color's PWM value based on current state
+    always_comb begin
+        case (u0.current_state)
+            u0.GREEN_INC: begin
+                green_pwm_value = u0.pwm_value;
+                red_pwm_value = PWM_INTERVAL;
+                blue_pwm_value = 0;
+            end
+            u0.RED_DEC: begin
+                green_pwm_value = PWM_INTERVAL;
+                red_pwm_value = u0.pwm_value;
+                blue_pwm_value = 0;
+            end
+            u0.BLUE_INC: begin
+                green_pwm_value = PWM_INTERVAL;
+                red_pwm_value = 0;
+                blue_pwm_value = u0.pwm_value;
+            end
+            u0.GREEN_DEC: begin
+                green_pwm_value = u0.pwm_value;
+                red_pwm_value = 0;
+                blue_pwm_value = PWM_INTERVAL;
+            end
+            u0.RED_INC: begin
+                green_pwm_value = 0;
+                red_pwm_value = u0.pwm_value;
+                blue_pwm_value = PWM_INTERVAL;
+            end
+            u0.BLUE_DEC: begin
+                green_pwm_value = 0;
+                red_pwm_value = PWM_INTERVAL;
+                blue_pwm_value = u0.pwm_value;
+            end
+        endcase
+    end
 endmodule
