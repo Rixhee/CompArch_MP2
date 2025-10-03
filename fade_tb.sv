@@ -7,15 +7,10 @@ module fade_tb;
 
     logic clk = 0;
 
-    // Variable to access current_state
-    logic [2: 0] tb_current_state;
-
     // Keeping track of the same PWM but for all colors
     logic [$clog2(PWM_INTERVAL) - 1: 0] red_pwm_value;
     logic [$clog2(PWM_INTERVAL) - 1: 0] green_pwm_value;
     logic [$clog2(PWM_INTERVAL) - 1: 0] blue_pwm_value;
-
-    assign  tb_current_state = u0.current_state;
 
     top # (
         .PWM_INTERVAL (PWM_INTERVAL)
